@@ -1,0 +1,100 @@
+import { Dispatch } from "redux";
+import axios from "axios";
+import { IPost, postAction, PostActionTypes } from "../../types/post";
+
+export const getAllPosts = () => {
+  return async (dispatch: Dispatch<postAction>) => {
+    try {
+      dispatch({ type: PostActionTypes.FETCH_POST });
+      const response = await axios.get("http://localhost:5000/api/post/posts");
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.FETCH_POST_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
+    } catch (error: any) {
+      dispatch({
+        type: PostActionTypes.FETCH_POST_ERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const createPost = (newPost: IPost) => {
+  return async (dispatch: Dispatch<postAction>) => {
+    try {
+      dispatch({ type: PostActionTypes.POST_ADD });
+      const response = await axios.post(
+        "http://localhost:5000/api/post/",
+        newPost
+      );
+      console.log("Actions", response.data);
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_ADD_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
+    } catch (error: any) {
+      dispatch({
+        type: PostActionTypes.POST_ADD_ERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const deletePost = (userId: string, id: string) => {
+  return async (dispatch: Dispatch<postAction>) => {
+    console.log(userId);
+    try {
+      dispatch({ type: PostActionTypes.POST_DELETE });
+      const response = await axios.delete(
+        `http://localhost:5000/api/post/${id}`,
+        {
+          data: {
+            userId,
+          },
+        }
+      );
+      console.log("Actions", response.data);
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_DELETE_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
+    } catch (error: any) {
+      dispatch({
+        type: PostActionTypes.POST_DELETE_ERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const updatePost = (desc: string, id: string, userId: string) => {
+  return async (dispatch: Dispatch<postAction>) => {
+    try {
+      dispatch({ type: PostActionTypes.POST_UPDATE });
+      const response = await axios.put(`http://localhost:5000/api/post/${id}`, {
+        desc,
+        userId,
+      });
+      console.log("Actions", response.data);
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_UPDATE_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
+    } catch (error: any) {
+      dispatch({
+        type: PostActionTypes.POST_UPDATE_ERROR,
+        payload: error,
+      });
+    }
+  };
+};

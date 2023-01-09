@@ -113,7 +113,8 @@ class userController {
         if (!user.followings.includes(req.body.userId)) {
           await user.updateOne({ $push: { followings: req.body.userId } });
           await currentUser.updateOne({ $push: { followers: req.params.id } });
-          return res.status(200).json("Пользователь успешно подружился");
+          const updatedUser = await User.findById(req.params.id);
+          return res.status(200).json(updatedUser);
         } else {
           return res.status(403).json("Пользователи уже дружат");
         }
@@ -134,7 +135,8 @@ class userController {
         if (!user.followers.includes(req.body.userId)) {
           await user.updateOne({ $pull: { followings: req.body.userId } });
           await currentUser.updateOne({ $pull: { followers: req.params.id } });
-          return res.status(200).json("Пользователь удален из друзей");
+          const updatedUser = await User.findById(req.params.id);
+          return res.status(200).json(updatedUser);
         } else {
           return res.status(403).json("Пользователь не является вашим другом");
         }

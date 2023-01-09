@@ -135,10 +135,9 @@ export const addFriend = (profileId: string, userId: string) => {
           userId,
         }
       );
-
       dispatch({
         type: UserActionTypes.ADD_FRIEND_SUCCESS,
-        // payload: response.data,
+        payload: response.data,
       });
     } catch (error: any) {
       dispatch({
@@ -162,7 +161,7 @@ export const removeFriend = (profileId: string, userId: string) => {
 
       dispatch({
         type: UserActionTypes.REMOVE_FRIEND_SUCCESS,
-        // payload: response.data,
+        payload: response.data,
       });
     } catch (error: any) {
       dispatch({

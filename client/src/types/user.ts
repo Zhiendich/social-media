@@ -125,6 +125,7 @@ interface AddFriendAction {
 
 interface AddFriendSuccessAction {
   type: UserActionTypes.ADD_FRIEND_SUCCESS;
+  payload: IUser;
 }
 
 interface AddFriendErrorAction {
@@ -138,6 +139,7 @@ interface RemoveFriendAction {
 
 interface RemoveFriendSuccessAction {
   type: UserActionTypes.REMOVE_FRIEND_SUCCESS;
+  payload: IUser;
 }
 
 interface RemoveFriendErrorAction {

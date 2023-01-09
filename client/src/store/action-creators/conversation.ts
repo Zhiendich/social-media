@@ -38,7 +38,6 @@ export const makeConversations = (senderId: string, recieverId: string) => {
           recieverId,
         }
       );
-      console.log(response.data);
       setTimeout(() => {
         dispatch({
           type: ConversationActionTypes.MAKE_CONVERSATION_SUCCESS,

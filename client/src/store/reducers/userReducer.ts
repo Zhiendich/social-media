@@ -128,7 +128,7 @@ export const userReducer = (
       return {
         isAuthLoading: false,
         isAuthError: null,
-        data: state.data,
+        data: { ...state.data, user: action.payload },
         users: state.users,
       };
     case UserActionTypes.ADD_FRIEND_ERROR:
@@ -149,7 +149,7 @@ export const userReducer = (
       return {
         isAuthLoading: false,
         isAuthError: null,
-        data: state.data,
+        data: { ...state.data, user: action.payload },
         users: state.users,
       };
     case UserActionTypes.REMOVE_FRIEND_ERROR:

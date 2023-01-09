@@ -41,7 +41,7 @@ export const conversationReducer = (
       };
     case ConversationActionTypes.MAKE_CONVERSATION_SUCCESS:
       return {
-        conversation: [action.payload, ...state.conversation],
+        conversation: state.conversation,
         isConversationError: null,
         isConversationLoading: false,
       };

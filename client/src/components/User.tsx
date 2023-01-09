@@ -26,14 +26,14 @@ const User = ({ fullName, _id, avatar }: IUser) => {
       removeFriend(user?._id, _id);
     }
   };
-  const makeDialog = () => {
+  const makeDialog = async () => {
     if (user?._id && _id) {
       const check = [user._id, _id];
       const find = conversations.find(
         (c) => JSON.stringify(c.members) === JSON.stringify(check)
       );
       if (!find) {
-        makeConversations(user._id, _id);
+        await makeConversations(user._id, _id);
         navigate(`../../chats/`);
         return;
       } else {

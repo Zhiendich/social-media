@@ -9,15 +9,10 @@ import { Outlet } from "react-router-dom";
 const Conversations = () => {
   const user = useTypedSelector(selectUser);
   const conversations = useTypedSelector(selectConversations);
-  const { getConversations, getMessages } = useActions();
+  const { getConversations } = useActions();
   useEffect(() => {
     if (user?._id) {
       getConversations(user._id);
-    }
-  }, []);
-  useEffect(() => {
-    if (conversations.length) {
-      getMessages(conversations[0]._id);
     }
   }, []);
   return (

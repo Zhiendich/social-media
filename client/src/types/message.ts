@@ -8,8 +8,8 @@ export interface IMessage {
 
 export interface IMessageState {
   messages: IMessage[];
-  isMessageLoading: boolean;
-  isMessageError: null | string;
+  isMessageLoading?: boolean;
+  isMessageError?: null | string;
 }
 
 export enum MessageActionTypes {

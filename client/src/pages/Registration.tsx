@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../UI/Loader/Loader";
 import TextField from "../UI/TextField/TextField";
 import { useActions } from "../hooks/useActions";
@@ -20,38 +20,10 @@ const Registration = () => {
   const [errorEmail, setErrorEmail] = useState<string | null>(null);
   const [errorPhone, setErrorPhone] = useState<string | null>(null);
   const [errorName, setErrorName] = useState<string | null>(null);
-  const [errorLastName, setErrorLastName] = useState<string | null>(null);
   const [errorPassword, setErrorPassword] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const registerHandler = async () => {
-    // if (isValidEmail(email)) {
-    //   if (isPhoneValid(phone)) {
-    //     if (isPasswordValid(password)) {
-    //       if (name.trim() !== "") {
-    //         if (lastName.trim() !== "") {
-    //           const newUser = {
-    //             email,
-    //             phone,
-    //             name,
-    //             lastName,
-    //             password,
-    //           };
-    //           userRegister(newUser);
-    //         } else {
-    //           setErrorName("Фамилия не может быть пустым");
-    //         }
-    //       } else {
-    //         setErrorName("Имя не может быть пустым");
-    //       }
-    //     } else {
-    //       setErrorPassword("Пароль min 6 символов");
-    //     }
-    //   } else {
-    //     setErrorPhone("Некорректный телефон");
-    //   }
-    // } else {
-    //   setErrorEmail("Некорректный email");
-    // }
     if (
       isValidEmail(email) &&
       isPhoneValid(phone) &&
@@ -64,7 +36,8 @@ const Registration = () => {
         fullName,
         password,
       };
-      userRegister(newUser);
+      await userRegister(newUser);
+      navigate("/login");
     } else {
       alert("Непрошло");
     }

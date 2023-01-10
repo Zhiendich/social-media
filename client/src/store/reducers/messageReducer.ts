@@ -36,20 +36,15 @@ export const messageReducer = (
     case MessageActionTypes.SEND_MESSAGE:
       return {
         messages: state.messages,
-        isMessageLoading: true,
-        isMessageError: null,
       };
     case MessageActionTypes.SEND_MESSAGE_SUCCESS:
       return {
         messages: [...state.messages, action.payload],
-        isMessageLoading: false,
-        isMessageError: null,
       };
     case MessageActionTypes.SEND_MESSAGE_ERROR:
+      console.log(action.type, action.payload);
       return {
         messages: state.messages,
-        isMessageLoading: false,
-        isMessageError: action.payload,
       };
     default:
       return state;

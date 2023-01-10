@@ -12,22 +12,19 @@ export const userReducer = (
   switch (action.type) {
     case UserActionTypes.FETCH_USERS:
       return {
-        isAuthLoading: true,
-        isAuthError: null,
+        isUsersLoading: true,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.FETCH_USERS_SUCCESS:
       return {
-        isAuthLoading: false,
-        isAuthError: null,
+        isUsersLoading: false,
         data: state.data,
         users: action.payload,
       };
     case UserActionTypes.FETCH_USERS_ERROR:
       return {
-        isAuthLoading: false,
-        isAuthError: action.payload,
+        isUsersLoading: false,
         data: state.data,
         users: state.users,
       };
@@ -96,87 +93,70 @@ export const userReducer = (
       };
     case UserActionTypes.UPDATE_USER:
       return {
-        isAuthLoading: true,
-        isAuthError: null,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.UPDATE_USER_SUCCESS:
       return {
-        isAuthLoading: false,
-        isAuthError: null,
         data: { ...state.data, user: action.payload },
         users: state.users?.map((user) =>
           user._id === action.payload._id ? action.payload : user
         ),
       };
     case UserActionTypes.UPDATE_USER_ERROR:
+      console.log(action.type, action.payload);
       return {
-        isAuthLoading: false,
-        isAuthError: action.payload,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.ADD_FRIEND:
       return {
-        isAuthLoading: true,
-        isAuthError: null,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.ADD_FRIEND_SUCCESS:
       return {
-        isAuthLoading: false,
-        isAuthError: null,
         data: { ...state.data, user: action.payload },
         users: state.users,
       };
     case UserActionTypes.ADD_FRIEND_ERROR:
+      console.log(action.type, action.payload);
       return {
-        isAuthLoading: false,
-        isAuthError: action.payload,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.REMOVE_FRIEND:
       return {
-        isAuthLoading: true,
-        isAuthError: null,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.REMOVE_FRIEND_SUCCESS:
       return {
-        isAuthLoading: false,
-        isAuthError: null,
         data: { ...state.data, user: action.payload },
         users: state.users,
       };
     case UserActionTypes.REMOVE_FRIEND_ERROR:
+      console.log(action.type, action.payload);
       return {
-        isAuthLoading: false,
-        isAuthError: action.payload,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.FETCH_FRIENDS:
       return {
-        isAuthLoading: true,
-        isAuthError: null,
+        isFriendLoading: true,
         data: state.data,
         users: state.users,
       };
     case UserActionTypes.FETCH_FRIENDS_SUCCESS:
       return {
-        isAuthLoading: false,
-        isAuthError: null,
+        isFriendLoading: false,
         data: state.data,
         users: action.payload,
       };
     case UserActionTypes.FETCH_FRIENDS_ERROR:
+      console.log(action.type, action.payload);
       return {
-        isAuthLoading: false,
-        isAuthError: action.payload,
+        isFriendLoading: false,
         data: state.data,
         users: state.users,
       };

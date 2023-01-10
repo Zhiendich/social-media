@@ -18,6 +18,8 @@ export interface IUserState {
   isRegisterError?: null | string;
   isAuthLoading?: boolean;
   isAuthError?: null | string;
+  isFriendLoading?: boolean;
+  isUsersLoading?: boolean;
 }
 
 export enum UserActionTypes {

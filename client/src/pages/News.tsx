@@ -3,15 +3,18 @@ import Post from "../components/Post";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { uploadImage } from "../services/upload";
+import { selectPostLoading } from "../store/selectors/postSelectors";
 import { selectPosts } from "../store/selectors/postSelectors";
 import { selectUser } from "../store/selectors/userSelectors";
 import { IPost } from "../types/post";
+import Loader from "../UI/Loader/Loader";
 
 const News = () => {
   const [input, setInput] = React.useState("");
   const file = React.useRef<File | null>(null);
   const user = useTypedSelector(selectUser);
   const posts = useTypedSelector(selectPosts);
+  const isLoading = useTypedSelector(selectPostLoading);
   const { createPost, getAllPosts } = useActions();
   React.useEffect(() => {
     getAllPosts();
@@ -58,6 +61,7 @@ const News = () => {
           <img
             className="w-[20px] h-[20px] cursor-pointer ml-2  mt-2"
             src="https://www.svgrepo.com/show/12604/paper-clip.svg"
+            alt=""
           />
           <input
             className="hidden"
@@ -74,21 +78,28 @@ const News = () => {
         </button>
       </div>
       <div className="flex flex-col items-center mt-3">
-        {posts
-          ?.sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-          .map((post) => (
-            <Post
-              desc={post.desc}
-              createdAt={post.createdAt}
-              user={post.user}
-              _id={post._id}
-              img={post.img}
-              key={post._id}
-            />
-          ))}
+        {isLoading ? (
+          <div className="mt-10">
+            <Loader />
+          </div>
+        ) : (
+          posts
+            ?.sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
+            .map((post) => (
+              <Post
+                desc={post.desc}
+                createdAt={post.createdAt}
+                user={post.user}
+                _id={post._id}
+                img={post.img}
+                key={post._id}
+              />
+            ))
+        )}
       </div>
     </div>
   );

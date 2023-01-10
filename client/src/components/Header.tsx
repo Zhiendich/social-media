@@ -1,11 +1,7 @@
-import React from "react";
-
-import { Link } from "react-router-dom";
 import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { selectUser } from "../store/selectors/userSelectors";
 import { UserActionTypes } from "../types/user";
 import Button from "../UI/Button/Button";
-import TextField from "../UI/TextField/TextField";
 
 const Header = () => {
   const user = useTypedSelector(selectUser);

@@ -4,16 +4,21 @@ import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { getUserConversation } from "../services/conversation";
 import { getUser } from "../services/user";
-import { selectMessages } from "../store/selectors/messageSelectors";
+import {
+  selectMessageLoading,
+  selectMessages,
+} from "../store/selectors/messageSelectors";
 import { selectUser } from "../store/selectors/userSelectors";
 import { IConversation } from "../types/conversation";
 import { IUser } from "../types/user";
+import Loader from "../UI/Loader/Loader";
 import Message from "./Message";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const { id } = useParams();
   const user = useTypedSelector(selectUser);
+  const isLoading = useTypedSelector(selectMessageLoading);
   const [currentUser, setCurrentUser] = useState<IUser | undefined>();
   const { getMessages, sendMessages } = useActions();
   const [conversation, setConversation] = useState<IConversation | undefined>();
@@ -38,22 +43,28 @@ const Chat = () => {
     if (find) {
       getUser(find).then((info) => setCurrentUser(info));
     }
-  }, [conversation]);
+  }, [conversation, user?._id]);
   return (
     <div className="basis-3/4  bg-white border-[2px] border-[black] rounded-2xl ml-8 max-h-[85vh] ">
       <p className="text-[20px] text-center  border-[black] rounded-2xl border-[2px] mt-[-2px] py-1 mx-[-2px] font-bold">
         {currentUser?.fullName}
       </p>
       <div className="h-[68vh] overflow-y-auto px-3 py-2">
-        {messages.map((m) => (
-          <Message
-            id={m._id}
-            sender={m.sender}
-            text={m.text}
-            key={m._id}
-            createdAt={m.createdAt}
-          />
-        ))}
+        {isLoading ? (
+          <div className="h-full flex items-center w-full justify-center">
+            <Loader />
+          </div>
+        ) : (
+          messages.map((m) => (
+            <Message
+              id={m._id}
+              sender={m.sender}
+              text={m.text}
+              key={m._id}
+              createdAt={m.createdAt}
+            />
+          ))
+        )}
       </div>
       <div className="p-5 border-t-[2px] border-[black] flex  items-center ">
         <input

@@ -8,4 +8,8 @@ export const selectIsAuthError = (state: GlobalAppState) =>
   state.user.isAuthError;
 export const selectIsRegister = (state: GlobalAppState) =>
   state.user.isRegisterLoading;
+export const selectIsFriendsLoading = (state: GlobalAppState) =>
+  state.user.isFriendLoading;
+export const selectIsUsersLoading = (state: GlobalAppState) =>
+  state.user.isUsersLoading;
 export const selectToken = (state: GlobalAppState) => state.user.data?.token;

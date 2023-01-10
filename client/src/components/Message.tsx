@@ -16,7 +16,7 @@ const Message = ({ text, sender, id, createdAt }: IMessage) => {
   const time = new Date(createdAt).toLocaleTimeString().slice(0, -2);
   React.useEffect(() => {
     getUser(sender).then((info) => setCurrentUser(info));
-  }, []);
+  }, [sender]);
   return (
     <div>
       {sender === user?._id ? (

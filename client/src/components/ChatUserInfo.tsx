@@ -5,12 +5,12 @@ import { selectUser } from "../store/selectors/userSelectors";
 import { getUser } from "../services/user";
 import { IUser } from "../types/user";
 
-interface ChatUserInfo {
+interface ChatUserInfoProps {
   members: string[];
   chatId: string;
 }
 
-const ChatUserInfo = ({ chatId, members }: ChatUserInfo) => {
+const ChatUserInfo = ({ chatId, members }: ChatUserInfoProps) => {
   const user = useTypedSelector(selectUser);
   const [userInfo, setUserInfo] = React.useState<IUser | undefined>();
   React.useEffect(() => {
@@ -19,7 +19,7 @@ const ChatUserInfo = ({ chatId, members }: ChatUserInfo) => {
       const data = getUser(find);
       data.then((info) => setUserInfo(info));
     }
-  }, []);
+  }, [user?._id, members]);
   return (
     <Link to={chatId} className="flex items-center py-2  my-2 ">
       <img

@@ -11,8 +11,8 @@ export interface IPost {
 
 export interface IPostState {
   posts: IPost[];
-  isPostLoading: boolean;
-  isPostError: null | string;
+  isPostLoading?: boolean;
+  isPostError?: null | string;
 }
 
 export enum PostActionTypes {

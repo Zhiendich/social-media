@@ -12,6 +12,7 @@ import { useActions } from "../hooks/useActions";
 import { selectConversations } from "../store/selectors/conversationSelectors";
 import TextField from "../UI/TextField/TextField";
 import { uploadImage } from "../services/upload";
+import Loader from "../UI/Loader/Loader";
 
 const Profile = () => {
   const { id } = useParams();
@@ -69,67 +70,73 @@ const Profile = () => {
   };
   return (
     <div className="p-5 bg-[#E5E5E5] rounded-2xl">
-      <div className="flex justify-center">
-        <div className="mr-14 flex flex-col items-center">
-          <img
-            className="w-[150px] h-[150px] rounded-full"
-            src={`http://localhost:5000/images/${userProfile?.avatar}`}
-            alt=""
-          />
-          <h1 className="text-[25px] font-bold">{userProfile?.fullName}</h1>
-          {userProfile?.phone}
-          {user?._id !== userProfile?._id ? (
-            <Button
-              style={{ width: "100%", marginTop: "15px" }}
-              text="Написать сообщение"
-              onClick={makeDialog}
+      {userProfile && posts ? (
+        <div className="flex justify-center">
+          <div className="mr-14 flex flex-col items-center">
+            <img
+              className="w-[150px] h-[150px] rounded-full"
+              src={`http://localhost:5000/images/${userProfile?.avatar}`}
+              alt=""
             />
-          ) : (
-            <div className="mt-3">
-              <div className="flex flex-col">
-                <label htmlFor="file">
-                  <div className="bg-[black] text-[white] p-2 cursor-pointer mb-3 text-center">
-                    Поменять аватар
-                  </div>
-                  <input
-                    type="file"
-                    id="file"
-                    className="hidden"
-                    onChange={uploadImgHandler}
+            <h1 className="text-[25px] font-bold">{userProfile?.fullName}</h1>
+            {userProfile?.phone}
+            {user?._id !== userProfile?._id ? (
+              <Button
+                style={{ width: "100%", marginTop: "15px" }}
+                text="Написать сообщение"
+                onClick={makeDialog}
+              />
+            ) : (
+              <div className="mt-3">
+                <div className="flex flex-col">
+                  <label htmlFor="file">
+                    <div className="bg-[black] text-[white] p-2 cursor-pointer mb-3 text-center">
+                      Поменять аватар
+                    </div>
+                    <input
+                      type="file"
+                      id="file"
+                      className="hidden"
+                      onChange={uploadImgHandler}
+                    />
+                  </label>
+                  <TextField
+                    fieldType="text"
+                    value={input}
+                    setValue={setInput}
+                    placeholder="Введине новое имя"
                   />
-                </label>
-                <TextField
-                  fieldType="text"
-                  value={input}
-                  setValue={setInput}
-                  placeholder="Введине новое имя"
-                />
-                <Button
-                  style={{
-                    marginTop: "15px",
-                    width: "90px",
-                    marginLeft: "auto",
-                  }}
-                  text="Изменить"
-                  onClick={updateProfileHandler}
-                />
+                  <Button
+                    style={{
+                      marginTop: "15px",
+                      width: "90px",
+                      marginLeft: "auto",
+                    }}
+                    text="Изменить"
+                    onClick={updateProfileHandler}
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          <div className="w-[70%]">
+            {posts?.map((post) => (
+              <Post
+                createdAt={post.createdAt}
+                user={post.user}
+                desc={post.desc}
+                key={post._id}
+                _id={post._id}
+                img={post.img}
+              />
+            ))}
+          </div>
         </div>
-        <div className="w-[70%]">
-          {posts?.map((post) => (
-            <Post
-              createdAt={post.createdAt}
-              user={post.user}
-              desc={post.desc}
-              key={post._id}
-              _id={post._id}
-              img={post.img}
-            />
-          ))}
+      ) : (
+        <div className="my-10">
+          <Loader />
         </div>
-      </div>
+      )}
     </div>
   );
 };

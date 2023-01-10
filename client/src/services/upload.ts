@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const uploadImage = async (data: FormData) => {
   try {
-    const response = await axios.post(`http://localhost:5000/api/upload`, data);
+    await axios.post(`http://localhost:5000/api/upload`, data);
   } catch (error: any) {
     console.log(error);
   }

@@ -5,7 +5,7 @@ export const userRegister = (newUserInfo: IUser) => {
   return async (dispatch: Dispatch<userAction>) => {
     try {
       dispatch({ type: UserActionTypes.USER_REGISTER });
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/user/registration",
         newUserInfo
       );

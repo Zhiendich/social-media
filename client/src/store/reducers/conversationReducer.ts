@@ -36,20 +36,15 @@ export const conversationReducer = (
     case ConversationActionTypes.MAKE_CONVERSATION:
       return {
         conversation: state.conversation,
-        isConversationError: null,
-        isConversationLoading: true,
       };
     case ConversationActionTypes.MAKE_CONVERSATION_SUCCESS:
       return {
         conversation: state.conversation,
-        isConversationError: null,
-        isConversationLoading: false,
       };
     case ConversationActionTypes.MAKE_CONVERSATION_ERROR:
+      console.log(action.type, action.payload);
       return {
         conversation: state.conversation,
-        isConversationError: action.payload,
-        isConversationLoading: false,
       };
     default:
       return state;

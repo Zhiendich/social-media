@@ -7,7 +7,7 @@ export const getMessages = (conversationId: string) => {
     try {
       dispatch({ type: MessageActionTypes.FETCH_MESSAGE });
       const response = await axios.get(
-        `http://localhost:5000/api/message/${conversationId}`
+        `${process.env.REACT_API_URL}/message/${conversationId}`
       );
       setTimeout(() => {
         dispatch({
@@ -32,11 +32,14 @@ export const sendMessages = (
   return async (dispatch: Dispatch<messageAction>) => {
     try {
       dispatch({ type: MessageActionTypes.SEND_MESSAGE });
-      const response = await axios.post(`http://localhost:5000/api/message/`, {
-        conversationId,
-        sender,
-        text,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_API_URL}/api/message/`,
+        {
+          conversationId,
+          sender,
+          text,
+        }
+      );
       setTimeout(() => {
         dispatch({
           type: MessageActionTypes.SEND_MESSAGE_SUCCESS,

@@ -6,7 +6,7 @@ export const getUsersPosts = async (
 ): Promise<IPost[] | undefined> => {
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/post/profile/${id}`
+      `${process.env.REACT_API_URL}/post/profile/${id}`
     );
     return response.data;
   } catch (error: any) {

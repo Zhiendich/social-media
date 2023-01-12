@@ -79,10 +79,13 @@ export const updatePost = (desc: string, id: string, userId: string) => {
   return async (dispatch: Dispatch<postAction>) => {
     try {
       dispatch({ type: PostActionTypes.POST_UPDATE });
-      const response = await axios.put(`http://localhost:5000/api/post/${id}`, {
-        desc,
-        userId,
-      });
+      const response = await axios.put(
+        `${process.env.REACT_API_URL}/post/${id}`,
+        {
+          desc,
+          userId,
+        }
+      );
       console.log("Actions", response.data);
       setTimeout(() => {
         dispatch({

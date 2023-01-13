@@ -10,7 +10,7 @@ export const getConversations = (id: string) => {
     try {
       dispatch({ type: ConversationActionTypes.FETCH_CONVERSATION });
       const response = await axios.get(
-        `${process.env.REACT_API_URL}/conversation/${id}`
+        `${process.env.REACT_APP_API_URL}/conversation/${id}`
       );
       setTimeout(() => {
         dispatch({
@@ -32,7 +32,7 @@ export const makeConversations = (senderId: string, recieverId: string) => {
     try {
       dispatch({ type: ConversationActionTypes.MAKE_CONVERSATION });
       const response = await axios.post(
-        `${process.env.REACT_API_URL}/conversation/`,
+        `${process.env.REACT_APP_API_URL}/conversation/`,
         {
           senderId,
           recieverId,

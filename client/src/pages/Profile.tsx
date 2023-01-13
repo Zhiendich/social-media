@@ -75,7 +75,7 @@ const Profile = () => {
           <div className="mr-14 flex flex-col items-center">
             <img
               className="w-[150px] h-[150px] rounded-full"
-              src={`${process.env.REACT_API_URL}/images/${userProfile?.avatar}`}
+              src={`${process.env.REACT_APP_API_URL}/images/${userProfile?.avatar}`}
               alt=""
             />
             <h1 className="text-[25px] font-bold">{userProfile?.fullName}</h1>

@@ -7,7 +7,7 @@ export const getMessages = (conversationId: string) => {
     try {
       dispatch({ type: MessageActionTypes.FETCH_MESSAGE });
       const response = await axios.get(
-        `${process.env.REACT_API_URL}/message/${conversationId}`
+        `${process.env.REACT_APP_API_URL}/message/${conversationId}`
       );
       setTimeout(() => {
         dispatch({
@@ -33,7 +33,7 @@ export const sendMessages = (
     try {
       dispatch({ type: MessageActionTypes.SEND_MESSAGE });
       const response = await axios.post(
-        `${process.env.REACT_API_URL}/api/message/`,
+        `${process.env.REACT_APP_API_URL}/api/message/`,
         {
           conversationId,
           sender,

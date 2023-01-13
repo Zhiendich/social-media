@@ -6,7 +6,7 @@ export const getUserConversation = async (
 ): Promise<IConversation | undefined> => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_API_URL}/conversation/find/${id}`
+      `${process.env.REACT_APP_API_URL}/conversation/find/${id}`
     );
     return response.data;
   } catch (error: any) {

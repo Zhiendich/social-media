@@ -80,7 +80,7 @@ export const updatePost = (desc: string, id: string, userId: string) => {
     try {
       dispatch({ type: PostActionTypes.POST_UPDATE });
       const response = await axios.put(
-        `${process.env.REACT_API_URL}/post/${id}`,
+        `${process.env.REACT_APP_API_URL}/post/${id}`,
         {
           desc,
           userId,

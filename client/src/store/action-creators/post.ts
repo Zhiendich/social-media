@@ -7,12 +7,10 @@ export const getAllPosts = () => {
     try {
       dispatch({ type: PostActionTypes.FETCH_POST });
       const response = await axios.get("http://localhost:5000/api/post/posts");
-      setTimeout(() => {
-        dispatch({
-          type: PostActionTypes.FETCH_POST_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: PostActionTypes.FETCH_POST_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.FETCH_POST_ERROR,
@@ -30,7 +28,6 @@ export const createPost = (newPost: IPost) => {
         "http://localhost:5000/api/post/",
         newPost
       );
-      console.log("Actions", response.data);
       setTimeout(() => {
         dispatch({
           type: PostActionTypes.POST_ADD_SUCCESS,
@@ -48,7 +45,6 @@ export const createPost = (newPost: IPost) => {
 
 export const deletePost = (userId: string, id: string) => {
   return async (dispatch: Dispatch<postAction>) => {
-    console.log(userId);
     try {
       dispatch({ type: PostActionTypes.POST_DELETE });
       const response = await axios.delete(
@@ -59,7 +55,6 @@ export const deletePost = (userId: string, id: string) => {
           },
         }
       );
-      console.log("Actions", response.data);
       setTimeout(() => {
         dispatch({
           type: PostActionTypes.POST_DELETE_SUCCESS,
@@ -86,7 +81,6 @@ export const updatePost = (desc: string, id: string, userId: string) => {
           userId,
         }
       );
-      console.log("Actions", response.data);
       setTimeout(() => {
         dispatch({
           type: PostActionTypes.POST_UPDATE_SUCCESS,

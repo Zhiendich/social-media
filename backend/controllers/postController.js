@@ -46,7 +46,11 @@ class postController {
   async getUsersPosts(req, res) {
     try {
       const posts = await Post.find({ user: req.params.id }).populate("user");
-      return res.status(200).json(posts);
+      if (posts) {
+        return res.status(200).json(posts);
+      } else {
+        throw Error("Не нашел пользовательских постов");
+      }
     } catch (error) {
       res
         .status(400)
@@ -57,7 +61,11 @@ class postController {
   async getAllPosts(req, res) {
     try {
       const posts = await Post.find().populate("user").exec();
-      return res.status(200).json(posts);
+      if (posts) {
+        return res.status(200).json(posts);
+      } else {
+        throw Error("Не нашел постов");
+      }
     } catch (error) {
       res.status(400).json({ message: "Не удалось получит все посты" });
     }

@@ -19,7 +19,11 @@ class messageController {
       const messages = await Message.find({
         conversationId: req.params.conversationId,
       });
-      return res.status(200).json(messages);
+      if (messages) {
+        return res.status(200).json(messages);
+      } else {
+        throw Error("Не нашел сообщения");
+      }
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Не удалось получить сообщения" });

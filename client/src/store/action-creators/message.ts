@@ -9,12 +9,10 @@ export const getMessages = (conversationId: string) => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/message/${conversationId}`
       );
-      setTimeout(() => {
-        dispatch({
-          type: MessageActionTypes.FETCH_MESSAGE_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: MessageActionTypes.FETCH_MESSAGE_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: MessageActionTypes.FETCH_MESSAGE_ERROR,
@@ -40,12 +38,10 @@ export const sendMessages = (
           text,
         }
       );
-      setTimeout(() => {
-        dispatch({
-          type: MessageActionTypes.SEND_MESSAGE_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: MessageActionTypes.SEND_MESSAGE_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: MessageActionTypes.SEND_MESSAGE_ERROR,

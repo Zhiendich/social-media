@@ -12,12 +12,11 @@ export const getConversations = (id: string) => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/conversation/${id}`
       );
-      setTimeout(() => {
-        dispatch({
-          type: ConversationActionTypes.FETCH_CONVERSATION_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+
+      dispatch({
+        type: ConversationActionTypes.FETCH_CONVERSATION_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: ConversationActionTypes.FETCH_CONVERSATION_ERROR,
@@ -38,12 +37,11 @@ export const makeConversations = (senderId: string, recieverId: string) => {
           recieverId,
         }
       );
-      setTimeout(() => {
-        dispatch({
-          type: ConversationActionTypes.MAKE_CONVERSATION_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+
+      dispatch({
+        type: ConversationActionTypes.MAKE_CONVERSATION_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: ConversationActionTypes.MAKE_CONVERSATION_ERROR,

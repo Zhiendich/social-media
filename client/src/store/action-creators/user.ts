@@ -9,11 +9,9 @@ export const userRegister = (newUserInfo: IUser) => {
         `${process.env.REACT_APP_API_URL}/user/registration`,
         newUserInfo
       );
-      setTimeout(() => {
-        dispatch({
-          type: UserActionTypes.USER_REGISTER_SUCCESS,
-        });
-      }, 1000);
+      dispatch({
+        type: UserActionTypes.USER_REGISTER_SUCCESS,
+      });
     } catch (error: any) {
       dispatch({
         type: UserActionTypes.USER_REGISTER_ERROR,
@@ -31,12 +29,10 @@ export const userAuth = (userInfo: { email: string; password: string }) => {
         `${process.env.REACT_APP_API_URL}/user/auth`,
         userInfo
       );
-      setTimeout(() => {
-        dispatch({
-          type: UserActionTypes.USER_AUTH_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: UserActionTypes.USER_AUTH_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: UserActionTypes.USER_AUTH_ERROR,
@@ -111,7 +107,6 @@ export const updateProfile = (
           data,
         }
       );
-
       dispatch({
         type: UserActionTypes.UPDATE_USER_SUCCESS,
         payload: response.data,

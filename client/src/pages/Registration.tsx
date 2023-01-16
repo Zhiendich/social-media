@@ -24,12 +24,24 @@ const Registration = () => {
   const navigate = useNavigate();
 
   const registerHandler = async () => {
-    if (
-      isValidEmail(email) &&
-      isPhoneValid(phone) &&
-      isPasswordValid(password) &&
-      fullName.trim() !== ""
-    ) {
+    let validation = false;
+    switch (validation) {
+      case isValidEmail(email):
+        setErrorEmail("Некорректный email");
+        break;
+      case isPhoneValid(phone):
+        setErrorPhone("Некорректный телефон");
+        break;
+      case isPasswordValid(password):
+        setErrorPassword("Некорректный пароль");
+        break;
+      case fullName.trim() !== "":
+        setErrorName("Имя не может быть пустым");
+        break;
+      default:
+        validation = true;
+    }
+    if (validation) {
       const newUser = {
         email,
         phone,
@@ -38,8 +50,6 @@ const Registration = () => {
       };
       await userRegister(newUser);
       navigate("/login");
-    } else {
-      alert("Непрошло");
     }
   };
   return (

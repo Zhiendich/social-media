@@ -7,6 +7,7 @@ export interface IPost {
   desc: string;
   img?: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface IPostState {

@@ -97,6 +97,7 @@ const News = () => {
                 _id={post._id}
                 img={post.img}
                 key={post._id}
+                updatedAt={post.updatedAt}
               />
             ))
         )}

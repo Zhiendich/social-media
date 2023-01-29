@@ -128,6 +128,7 @@ const Profile = () => {
                 key={post._id}
                 _id={post._id}
                 img={post.img}
+                updatedAt={post.updatedAt}
               />
             ))}
           </div>

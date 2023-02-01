@@ -6,7 +6,7 @@ export const userRegister = (newUserInfo: IUser) => {
     try {
       dispatch({ type: UserActionTypes.USER_REGISTER });
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/registration`,
+        `${process.env.REACT_APP_API_URL_USER}/registration`,
         newUserInfo
       );
       dispatch({
@@ -26,7 +26,7 @@ export const userAuth = (userInfo: { email: string; password: string }) => {
     try {
       dispatch({ type: UserActionTypes.USER_AUTH });
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/auth`,
+        `${process.env.REACT_APP_API_URL_USER}/auth`,
         userInfo
       );
       dispatch({
@@ -47,7 +47,7 @@ export const isUserAuth = () => {
     try {
       dispatch({ type: UserActionTypes.IS_AUTH });
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/user/getUser`,
+        `${process.env.REACT_APP_API_URL_USER}/getUser`,
         {
           headers: {
             Authorization: window.localStorage.getItem("token"),
@@ -73,7 +73,7 @@ export const getAllUsers = (id: string) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_USERS });
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/user/getUsers`,
+        `${process.env.REACT_APP_API_URL_USER}/getUsers`,
         {
           params: {
             id,
@@ -102,7 +102,7 @@ export const updateProfile = (
     try {
       dispatch({ type: UserActionTypes.UPDATE_USER });
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/user/profile/${id}`,
+        `${process.env.REACT_APP_API_URL_USER}/profile/${id}`,
         {
           data,
         }
@@ -125,7 +125,7 @@ export const addFriend = (profileId: string, userId: string) => {
     try {
       dispatch({ type: UserActionTypes.ADD_FRIEND });
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/user/follow/${profileId}`,
+        `${process.env.REACT_APP_API_URL_USER}/follow/${profileId}`,
         {
           userId,
         }
@@ -148,7 +148,7 @@ export const removeFriend = (profileId: string, userId: string) => {
     try {
       dispatch({ type: UserActionTypes.REMOVE_FRIEND });
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/user/unfollow/${profileId}`,
+        `${process.env.REACT_APP_API_URL_USER}/unfollow/${profileId}`,
         {
           userId,
         }
@@ -172,7 +172,7 @@ export const getFriends = (id: string) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_FRIENDS });
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/user/friends/${id}`
+        `${process.env.REACT_APP_API_URL_USER}/friends/${id}`
       );
 
       dispatch({

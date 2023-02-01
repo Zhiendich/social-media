@@ -19,7 +19,7 @@ const Header = () => {
         <span className="text-[18px] mr-2">{user?.fullName}</span>
         <img
           className="w-[40px] h-[40px] rounded-full"
-          src={`${process.env.REACT_APP_API_URL}/images/${user?.avatar}`}
+          src={`${process.env.REACT_APP_API_URL_IMG}/${user?.avatar}`}
           alt=""
         />
         <Button onClick={logout} text={"Выйти"} />

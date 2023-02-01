@@ -6,7 +6,9 @@ export const getAllPosts = () => {
   return async (dispatch: Dispatch<postAction>) => {
     try {
       dispatch({ type: PostActionTypes.FETCH_POST });
-      const response = await axios.get("http://localhost:5000/api/post/posts");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL_POST}/posts`
+      );
       dispatch({
         type: PostActionTypes.FETCH_POST_SUCCESS,
         payload: response.data,
@@ -25,7 +27,7 @@ export const createPost = (newPost: IPost) => {
     try {
       dispatch({ type: PostActionTypes.POST_ADD });
       const response = await axios.post(
-        "http://localhost:5000/api/post/",
+        `${process.env.REACT_APP_API_URL_POST}`,
         newPost
       );
       setTimeout(() => {
@@ -48,7 +50,7 @@ export const deletePost = (userId: string, id: string) => {
     try {
       dispatch({ type: PostActionTypes.POST_DELETE });
       const response = await axios.delete(
-        `http://localhost:5000/api/post/${id}`,
+        `${process.env.REACT_APP_API_URL_POST}/${id}`,
         {
           data: {
             userId,
@@ -75,7 +77,7 @@ export const updatePost = (desc: string, id: string, userId: string) => {
     try {
       dispatch({ type: PostActionTypes.POST_UPDATE });
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/post/${id}`,
+        `${process.env.REACT_APP_API_URL_POST}/${id}`,
         {
           desc,
           userId,

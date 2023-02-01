@@ -40,7 +40,7 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt }: IPost) => {
       <div className="flex  items-center mb-4">
         <img
           className="w-[40px] h-[40px] rounded-full border-[1.5px] border-[black]"
-          src={`${process.env.REACT_APP_API_URL}/images/${user?.avatar}`}
+          src={`${process.env.REACT_APP_API_URL_IMG}/${user?.avatar}`}
           alt=""
         />
         <div className="flex flex-col ml-1">
@@ -89,7 +89,7 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt }: IPost) => {
       )}
       <img
         className="w-full max-h-[300px] mt-4"
-        src={`${process.env.REACT_APP_API_URL}/images/${img}`}
+        src={`${process.env.REACT_APP_API_URL_IMG}/${img}`}
         alt=""
       />
       <img

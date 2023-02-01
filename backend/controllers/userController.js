@@ -42,6 +42,12 @@ class userController {
 
   async authorization(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res
+          .status(400)
+          .json({ message: "Ошибка при валидации", errors });
+      }
       const { email } = req.body;
       const user = await User.findOne({ email });
       if (!user) {
@@ -154,17 +160,21 @@ class userController {
   async getFriends(req, res) {
     try {
       const user = await User.findById(req.params.id);
-      const friends = await Promise.all(
-        user.followings.map((friendId) => {
-          return User.findById(friendId);
-        })
-      );
-      let friendList = [];
-      friends.map((friend) => {
-        const { _id, fullName, avatar } = friend;
-        friendList.push({ _id, fullName, avatar });
-      });
-      return res.status(200).json(friendList);
+      if (user) {
+        const friends = await Promise.all(
+          user.followings.map((friendId) => {
+            return User.findById(friendId);
+          })
+        );
+        let friendList = [];
+        friends.map((friend) => {
+          const { _id, fullName, avatar } = friend;
+          friendList.push({ _id, fullName, avatar });
+        });
+        return res.status(200).json(friendList);
+      } else {
+        throw Error("НЕ удалось получить друзей пользователя");
+      }
     } catch (error) {
       console.log(error);
       res
@@ -175,7 +185,6 @@ class userController {
   async changeProfile(req, res) {
     try {
       const user = await User.findById(req.params.id);
-      console.log(req.body.data);
       if (user) {
         await user.updateOne({ $set: req.body.data });
         const updatedUser = await User.findById(req.params.id);

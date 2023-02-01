@@ -19,7 +19,11 @@ class conversationController {
       const conversations = await Conversation.find({
         members: { $in: [req.params.userId] },
       });
-      res.status(200).json(conversations);
+      if (conversations) {
+        res.status(200).json(conversations);
+      } else {
+        throw Error("Не удалось получить диалоги");
+      }
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Не удалось получить диалоги" });
@@ -31,8 +35,11 @@ class conversationController {
       const conversation = await Conversation.findOne({
         _id: req.params.id,
       });
-
-      return res.status(200).json(conversation);
+      if (conversation) {
+        return res.status(200).json(conversation);
+      } else {
+        throw Error("Не удалось получить диалог");
+      }
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Не удалось получить диалог " });

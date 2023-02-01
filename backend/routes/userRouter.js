@@ -15,7 +15,16 @@ router.post(
   ],
   controller.registration
 );
-router.post("/auth", controller.authorization);
+router.post(
+  "/auth",
+  [
+    check("email", "Неправильный Email").isEmail(),
+    check("password", "Пароль должен быть длинее 6 символов").isLength({
+      min: 6,
+    }),
+  ],
+  controller.authorization
+);
 router.get("/getUser", checkAuth, controller.isUserAuth);
 router.get("/getUsers", controller.getAllUsers);
 router.get("/:id", controller.getUser);

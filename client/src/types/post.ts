@@ -8,6 +8,7 @@ export interface IPost {
   img?: string;
   createdAt: string;
   updatedAt?: string;
+  likes: string[];
 }
 
 export interface IPostState {
@@ -29,6 +30,9 @@ export enum PostActionTypes {
   POST_UPDATE = "POST_UPDATE",
   POST_UPDATE_SUCCESS = "POST_UPDATE_SUCCESS",
   POST_UPDATE_ERROR = "POST_UPDATE_ERROR",
+  POST_LIKE = "POST_LIKE",
+  POST_LIKE_SUCCESS = "POST_LIKE_SUCCESS",
+  POST_LIKE_ERROR = "POST_LIKE_ERROR",
 }
 
 interface PostAddAction {
@@ -71,6 +75,21 @@ interface PostUpdateErrorAction {
   type: PostActionTypes.POST_UPDATE_ERROR;
   payload: string;
 }
+
+interface PostLikeAction {
+  type: PostActionTypes.POST_LIKE;
+}
+
+interface PostLikeSuccessAction {
+  type: PostActionTypes.POST_LIKE_SUCCESS;
+  payload: IPost;
+}
+
+interface PostLikeErrorAction {
+  type: PostActionTypes.POST_LIKE_ERROR;
+  payload: string;
+}
+
 interface FetchPostAction {
   type: PostActionTypes.FETCH_POST;
 }
@@ -97,4 +116,7 @@ export type postAction =
   | PostDeleteErrorAction
   | PostUpdateAction
   | PostUpdateSuccessAction
-  | PostUpdateErrorAction;
+  | PostUpdateErrorAction
+  | PostLikeAction
+  | PostLikeSuccessAction
+  | PostLikeErrorAction;

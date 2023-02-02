@@ -50,8 +50,10 @@ class userController {
       }
       const { email } = req.body;
       const user = await User.findOne({ email });
-      if (!user) {
-        res.status(404).json({ message: "Такого пользователя не существует" });
+      if (user === null) {
+        return res
+          .status(404)
+          .json({ message: "Такого пользователя не существует" });
       }
       const validPassword = bcrypt.compareSync(
         req.body.password,

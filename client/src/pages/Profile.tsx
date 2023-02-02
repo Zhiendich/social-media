@@ -129,6 +129,7 @@ const Profile = () => {
                 _id={post._id}
                 img={post.img}
                 updatedAt={post.updatedAt}
+                likes={post.likes}
               />
             ))}
           </div>

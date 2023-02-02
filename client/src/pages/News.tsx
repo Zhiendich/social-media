@@ -25,6 +25,7 @@ const News = () => {
         desc: input,
         userId: user?._id,
         createdAt: String(Date.now()),
+        likes: [],
       };
       if (file.current) {
         newPost.img = file.current.name;
@@ -98,6 +99,7 @@ const News = () => {
                 img={post.img}
                 key={post._id}
                 updatedAt={post.updatedAt}
+                likes={post.likes}
               />
             ))
         )}

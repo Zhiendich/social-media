@@ -15,7 +15,6 @@ import Profile from "./pages/Profile";
 import Registration from "./pages/Registration";
 import { selectUser } from "./store/selectors/userSelectors";
 import { IUser } from "./types/user";
-console.log(process.env.REACT_APP_API_URL);
 function App() {
   const { isUserAuth } = useActions();
   const currentUser = useTypedSelector(selectUser);

@@ -75,6 +75,21 @@ export const postReducer = (
       return {
         posts: state.posts,
       };
+    case PostActionTypes.POST_LIKE:
+      return {
+        posts: state.posts,
+      };
+    case PostActionTypes.POST_LIKE_SUCCESS:
+      return {
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
+    case PostActionTypes.POST_LIKE_ERROR:
+      console.log(action.type, action.payload);
+      return {
+        posts: state.posts,
+      };
     default:
       return state;
   }

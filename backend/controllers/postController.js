@@ -17,6 +17,7 @@ class postController {
       res.status(500).json({ message: "Не удалось создать новость" });
     }
   }
+
   async updatePost(req, res) {
     try {
       const post = await Post.findById(req.params.id).populate("user");
@@ -30,6 +31,7 @@ class postController {
       res.status(500).json({ message: "Не удалось обновить новость" });
     }
   }
+
   async deletePost(req, res) {
     try {
       const post = await Post.findById(req.params.id);
@@ -55,6 +57,34 @@ class postController {
       res
         .status(400)
         .json({ message: "Не удалось получить посты пользователя" });
+    }
+  }
+
+  async likePost(req, res) {
+    try {
+      const post = await Post.findById(req.params.id).populate("user");
+      if (post) {
+        if (!post.likes.includes(req.body.userId)) {
+          post.likes = [req.body.userId, ...post.likes];
+          await post.updateOne({
+            $push: { likes: req.body.userId },
+          });
+          res.status(200).json({ post });
+        } else {
+          post.likes = post.likes.filter(
+            (userId) => userId !== req.body.userId
+          );
+          await post.updateOne({
+            $pull: { likes: req.body.userId },
+          });
+          res.status(200).json({ post });
+        }
+      } else {
+        throw Error("Не нашел пост");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: "Не удалось поставить лайк" });
     }
   }
 

@@ -97,3 +97,26 @@ export const updatePost = (desc: string, id: string, userId: string) => {
     }
   };
 };
+
+export const likePost = (id: string, userId: string) => {
+  return async (dispatch: Dispatch<postAction>) => {
+    try {
+      dispatch({ type: PostActionTypes.POST_LIKE });
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL_POST}/like/${id}`,
+        {
+          userId,
+        }
+      );
+      dispatch({
+        type: PostActionTypes.POST_LIKE_SUCCESS,
+        payload: response.data.post,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: PostActionTypes.POST_LIKE_ERROR,
+        payload: error,
+      });
+    }
+  };
+};

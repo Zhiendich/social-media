@@ -15,7 +15,7 @@ export const userRegister = (newUserInfo: IUser) => {
     } catch (error: any) {
       dispatch({
         type: UserActionTypes.USER_REGISTER_ERROR,
-        payload: error,
+        payload: "Пользователь с таким email уже существует",
       });
     }
   };
@@ -36,7 +36,7 @@ export const userAuth = (userInfo: { email: string; password: string }) => {
     } catch (error: any) {
       dispatch({
         type: UserActionTypes.USER_AUTH_ERROR,
-        payload: error,
+        payload: "Неправильные логин или пароль",
       });
     }
   };

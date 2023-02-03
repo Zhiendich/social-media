@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "../UI/Loader/Loader";
 import TextField from "../UI/TextField/TextField";
 import { useActions } from "../hooks/useActions";
@@ -9,10 +9,14 @@ import {
   isPhoneValid,
   isValidEmail,
 } from "../hooks/useValidate";
-import { selectIsRegister } from "../store/selectors/userSelectors";
+import {
+  selectIsRegister,
+  selectIsRegisterError,
+} from "../store/selectors/userSelectors";
 const Registration = () => {
   const { userRegister } = useActions();
   const isRegisterLoading = useTypedSelector(selectIsRegister);
+  const isRegisterError = useTypedSelector(selectIsRegisterError);
   const [email, setEmail] = useState("nikita@gmail.com");
   const [phone, setPhone] = useState("+380973169033");
   const [fullName, setFullName] = useState("Nikita Potapow");
@@ -21,8 +25,6 @@ const Registration = () => {
   const [errorPhone, setErrorPhone] = useState<string | null>(null);
   const [errorName, setErrorName] = useState<string | null>(null);
   const [errorPassword, setErrorPassword] = useState<string | null>(null);
-  const navigate = useNavigate();
-
   const registerHandler = async () => {
     let validation = false;
     switch (validation) {
@@ -49,7 +51,6 @@ const Registration = () => {
         password,
       };
       await userRegister(newUser);
-      navigate("/login");
     }
   };
   return (
@@ -94,6 +95,9 @@ const Registration = () => {
             setError={setErrorPassword}
           />
         </div>
+        {isRegisterError && (
+          <h1 className="text-[red] text-center">{isRegisterError}</h1>
+        )}
         <p className="text-[18px] text-center mt-3">
           Вернуться на страницу
           <Link className="text-[blue] cursor-pointer ml-1" to={"/login"}>

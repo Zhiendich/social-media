@@ -47,6 +47,9 @@ export enum UserActionTypes {
   FETCH_FRIENDS = "FETCH_FRIENDS",
   FETCH_FRIENDS_SUCCESS = "FETCH_FRIENDS_SUCCESS",
   FETCH_FRIENDS_ERROR = "FETCH_FRIENDS_ERROR",
+  DELETE_USER = "DELETE_USER",
+  DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS",
+  DELETE_USER_ERROR = "DELETE_USER_ERROR",
   USER_LOG_OUT = " USER_LOG_OUT",
 }
 
@@ -121,6 +124,20 @@ interface UpdateUserErrorAction {
   payload: string;
 }
 
+interface DeleteUserAction {
+  type: UserActionTypes.DELETE_USER;
+}
+
+interface DeleteUserSuccessAction {
+  type: UserActionTypes.DELETE_USER_SUCCESS;
+  payload: IUser;
+}
+
+interface DeleteUserErrorAction {
+  type: UserActionTypes.DELETE_USER_ERROR;
+  payload: string;
+}
+
 interface AddFriendAction {
   type: UserActionTypes.ADD_FRIEND;
 }
@@ -192,4 +209,7 @@ export type userAction =
   | FetchFriendsAction
   | FetchFriendsErrorAction
   | FetchFriendsSuccessAction
-  | UserLogOutAction;
+  | UserLogOutAction
+  | DeleteUserAction
+  | DeleteUserSuccessAction
+  | DeleteUserErrorAction;

@@ -30,12 +30,10 @@ export const createPost = (newPost: IPost) => {
         `${process.env.REACT_APP_API_URL_POST}`,
         newPost
       );
-      setTimeout(() => {
-        dispatch({
-          type: PostActionTypes.POST_ADD_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: PostActionTypes.POST_ADD_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_ADD_ERROR,
@@ -57,12 +55,10 @@ export const deletePost = (userId: string, id: string) => {
           },
         }
       );
-      setTimeout(() => {
-        dispatch({
-          type: PostActionTypes.POST_DELETE_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: PostActionTypes.POST_DELETE_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_DELETE_ERROR,
@@ -83,12 +79,10 @@ export const updatePost = (desc: string, id: string, userId: string) => {
           userId,
         }
       );
-      setTimeout(() => {
-        dispatch({
-          type: PostActionTypes.POST_UPDATE_SUCCESS,
-          payload: response.data,
-        });
-      }, 1000);
+      dispatch({
+        type: PostActionTypes.POST_UPDATE_SUCCESS,
+        payload: response.data,
+      });
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_UPDATE_ERROR,

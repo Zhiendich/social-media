@@ -19,7 +19,7 @@ const Profile = () => {
   const [posts, setPosts] = useState<IPost[]>();
   const [userProfile, setUserProfile] = useState<IUser>();
   const [input, setInput] = useState("");
-  const { makeConversations, updateProfile } = useActions();
+  const { makeConversations, updateProfile, deleteProfile } = useActions();
   const navigate = useNavigate();
   const file = React.useRef<File | null>(null);
   const user = useTypedSelector(selectUser);
@@ -68,6 +68,11 @@ const Profile = () => {
       updateProfile(newData, id);
     }
   };
+  const deleteUser = () => {
+    if (id) {
+      deleteProfile(id);
+    }
+  };
   return (
     <div className="p-5 bg-[#E5E5E5] rounded-2xl">
       {userProfile && posts ? (
@@ -75,7 +80,11 @@ const Profile = () => {
           <div className="mr-14 flex flex-col items-center">
             <img
               className="w-[150px] h-[150px] rounded-full"
-              src={`${process.env.REACT_APP_API_URL_IMG}/${userProfile?.avatar}`}
+              src={
+                userProfile.avatar
+                  ? `${process.env.REACT_APP_API_URL_IMG}/${userProfile?.avatar}`
+                  : ""
+              }
               alt=""
             />
             <h1 className="text-[25px] font-bold">{userProfile?.fullName}</h1>
@@ -114,6 +123,15 @@ const Profile = () => {
                     }}
                     text="Изменить"
                     onClick={updateProfileHandler}
+                  />
+                  <Button
+                    onClick={deleteUser}
+                    text="Удалить аккаунт"
+                    style={{
+                      backgroundColor: "red",
+                      marginTop: "15px",
+                      color: "white",
+                    }}
                   />
                 </div>
               </div>

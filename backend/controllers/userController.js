@@ -199,6 +199,16 @@ class userController {
         .json({ message: "НЕ удалось изменить данные о пользователе" });
     }
   }
+
+  async deleteUser(req, res) {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: "Пользователь успешно удален" });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: "НЕ удалось удалить пользователя" });
+    }
+  }
 }
 
 module.exports = new userController();

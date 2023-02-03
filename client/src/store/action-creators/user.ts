@@ -187,3 +187,25 @@ export const getFriends = (id: string) => {
     }
   };
 };
+
+export const deleteProfile = (id: string) => {
+  return async (dispatch: Dispatch<userAction>) => {
+    try {
+      dispatch({ type: UserActionTypes.UPDATE_USER });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL_USER}/profile/${id}`
+      );
+      dispatch({
+        type: UserActionTypes.UPDATE_USER_SUCCESS,
+        payload: response.data,
+      });
+      dispatch({ type: UserActionTypes.USER_LOG_OUT });
+      window.localStorage.removeItem("token");
+    } catch (error: any) {
+      dispatch({
+        type: UserActionTypes.UPDATE_USER_ERROR,
+        payload: error,
+      });
+    }
+  };
+};

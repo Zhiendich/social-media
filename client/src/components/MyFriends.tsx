@@ -29,7 +29,11 @@ const MyFriends = () => {
             key={user._id}
             fullName={user.fullName}
             _id={user._id}
-            avatar={`${process.env.REACT_APP_API_URL_IMG}/${user.avatar}`}
+            avatar={
+              user.avatar
+                ? `${process.env.REACT_APP_API_URL_IMG}/${user.avatar}`
+                : ""
+            }
           />
         ))
       )}

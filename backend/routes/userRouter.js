@@ -32,5 +32,6 @@ router.put("/follow/:id", controller.addFriend);
 router.put("/unfollow/:id", controller.removeFriend);
 router.get("/friends/:id", controller.getFriends);
 router.put("/profile/:id", controller.changeProfile);
+router.delete("/profile/:id", controller.deleteUser);
 
 module.exports = router;

@@ -6,7 +6,7 @@ import { IUser } from "../types/user";
 
 interface IPost {
   _id?: string;
-  desc: string;
+  desc?: string;
   img?: string;
   createdAt: string;
   user?: IUser;
@@ -32,7 +32,7 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
   };
   const updatePostHandler = () => {
     if (_id && currentUser?._id) {
-      updatePost(changeText, _id, currentUser._id);
+      updatePost(changeText!, _id, currentUser._id);
       setFlag(false);
     }
   };
@@ -46,7 +46,11 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
       <div className="flex  items-center mb-4">
         <img
           className="w-[40px] h-[40px] rounded-full border-[1.5px] border-[black]"
-          src={`${process.env.REACT_APP_API_URL_IMG}/${user?.avatar}`}
+          src={
+            user?.avatar
+              ? `${process.env.REACT_APP_API_URL_IMG}/${user?.avatar}`
+              : ""
+          }
           alt=""
         />
         <div className="flex flex-col ml-1">
@@ -112,7 +116,7 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
       )}
       <img
         className="w-full max-h-[300px] mt-4"
-        src={`${process.env.REACT_APP_API_URL_IMG}/${img}`}
+        src={img ? `${process.env.REACT_APP_API_URL_IMG}/${img}` : ""}
         alt=""
       />
     </div>

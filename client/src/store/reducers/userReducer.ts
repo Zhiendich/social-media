@@ -109,6 +109,22 @@ export const userReducer = (
         data: state.data,
         users: state.users,
       };
+    case UserActionTypes.DELETE_USER:
+      return {
+        data: state.data,
+        users: state.users,
+      };
+    case UserActionTypes.DELETE_USER_SUCCESS:
+      return {
+        data: null,
+        users: state.users,
+      };
+    case UserActionTypes.DELETE_USER_ERROR:
+      console.log(action.type, action.payload);
+      return {
+        data: state.data,
+        users: state.users,
+      };
     case UserActionTypes.ADD_FRIEND:
       return {
         data: state.data,

@@ -27,7 +27,11 @@ const Message = ({ text, sender, id, createdAt }: IMessage) => {
           <div className="flex flex-col items-center">
             <img
               className="w-[35px] h-[35px] rounded-full border-[1.5px] border-[black]"
-              src={`${process.env.REACT_APP_API_URL_IMG}/${currentUser?.avatar}`}
+              src={
+                currentUser?.avatar
+                  ? `${process.env.REACT_APP_API_URL_IMG}/${currentUser?.avatar}`
+                  : ""
+              }
               alt=""
             />
             <span className="text-[gray] text-[13px] ">{time}</span>
@@ -39,7 +43,11 @@ const Message = ({ text, sender, id, createdAt }: IMessage) => {
             <div className="flex flex-col items-center">
               <img
                 className="w-[35px] h-[35px] rounded-full border-[1.5px] border-[black]"
-                src={`${process.env.REACT_APP_API_URL_IMG}/${currentUser?.avatar}`}
+                src={
+                  currentUser?.avatar
+                    ? `${process.env.REACT_APP_API_URL_IMG}/${currentUser?.avatar}`
+                    : ""
+                }
                 alt=""
               />
               <span className="text-[gray] text-[13px] ">{time}</span>

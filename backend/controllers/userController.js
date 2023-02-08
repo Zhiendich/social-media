@@ -2,6 +2,9 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const Post = require("../models/Post");
+const Conversation = require("../models/Conversation");
+const Message = require("../models/Message");
 require("dotenv").config();
 
 const generateAccesToken = (id) => {
@@ -168,6 +171,9 @@ class userController {
             return User.findById(friendId);
           })
         );
+        if (!friends) {
+          return res.status(400).json("Не нашел друзей");
+        }
         let friendList = [];
         friends.map((friend) => {
           const { _id, fullName, avatar } = friend;
@@ -203,6 +209,14 @@ class userController {
   async deleteUser(req, res) {
     try {
       await User.findByIdAndDelete(req.params.id);
+      await Post.deleteMany({ user: req.params.id });
+      const conversation = await Conversation.find({
+        members: { $in: [req.params.id] },
+      });
+      await Conversation.find({
+        members: { $in: [req.params.id] },
+      }).deleteMany();
+      await Message.find({ conversationId: conversation._id }).deleteMany();
       res.status(200).json({ message: "Пользователь успешно удален" });
     } catch (error) {
       console.log(error);

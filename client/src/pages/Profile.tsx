@@ -99,7 +99,7 @@ const Profile = () => {
               <div className="mt-3">
                 <div className="flex flex-col">
                   <label htmlFor="file">
-                    <div className="bg-[black] text-[white] p-2 cursor-pointer mb-3 text-center">
+                    <div className="bg-[black] text-[white] p-2 cursor-pointer mb-3 text-center rounded-2xl">
                       Поменять аватар
                     </div>
                     <input
@@ -117,6 +117,8 @@ const Profile = () => {
                   />
                   <Button
                     style={{
+                      backgroundColor: "black",
+                      color: "white",
                       marginTop: "15px",
                       width: "90px",
                       marginLeft: "auto",
@@ -124,6 +126,7 @@ const Profile = () => {
                     text="Изменить"
                     onClick={updateProfileHandler}
                   />
+                  <div className="h-[1px] bg-black mt-6 "></div>
                   <Button
                     onClick={deleteUser}
                     text="Удалить аккаунт"

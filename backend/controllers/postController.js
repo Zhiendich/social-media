@@ -51,7 +51,7 @@ class postController {
       if (posts) {
         return res.status(200).json(posts);
       } else {
-        throw Error("Не нашел пользовательских постов");
+        return res.status(200).json("Не нашел пользовательских постов");
       }
     } catch (error) {
       res

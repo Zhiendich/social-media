@@ -25,15 +25,17 @@ export const getAllPosts = () => {
 export const createPost = (newPost: IPost) => {
   return async (dispatch: Dispatch<postAction>) => {
     try {
-      dispatch({ type: PostActionTypes.POST_ADD });
+      dispatch({ type: PostActionTypes.POST_ADD, payload: newPost._id });
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL_POST}`,
         newPost
       );
-      dispatch({
-        type: PostActionTypes.POST_ADD_SUCCESS,
-        payload: response.data,
-      });
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_ADD_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_ADD_ERROR,
@@ -46,7 +48,7 @@ export const createPost = (newPost: IPost) => {
 export const deletePost = (userId: string, id: string) => {
   return async (dispatch: Dispatch<postAction>) => {
     try {
-      dispatch({ type: PostActionTypes.POST_DELETE });
+      dispatch({ type: PostActionTypes.POST_DELETE, payload: id });
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL_POST}/${id}`,
         {
@@ -55,10 +57,12 @@ export const deletePost = (userId: string, id: string) => {
           },
         }
       );
-      dispatch({
-        type: PostActionTypes.POST_DELETE_SUCCESS,
-        payload: response.data,
-      });
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_DELETE_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_DELETE_ERROR,
@@ -71,7 +75,8 @@ export const deletePost = (userId: string, id: string) => {
 export const updatePost = (desc: string, id: string, userId: string) => {
   return async (dispatch: Dispatch<postAction>) => {
     try {
-      dispatch({ type: PostActionTypes.POST_UPDATE });
+      dispatch({ type: PostActionTypes.POST_UPDATE, payload: id });
+
       const response = await axios.put(
         `${process.env.REACT_APP_API_URL_POST}/${id}`,
         {
@@ -79,10 +84,12 @@ export const updatePost = (desc: string, id: string, userId: string) => {
           userId,
         }
       );
-      dispatch({
-        type: PostActionTypes.POST_UPDATE_SUCCESS,
-        payload: response.data,
-      });
+      setTimeout(() => {
+        dispatch({
+          type: PostActionTypes.POST_UPDATE_SUCCESS,
+          payload: response.data,
+        });
+      }, 1000);
     } catch (error: any) {
       dispatch({
         type: PostActionTypes.POST_UPDATE_ERROR,

@@ -14,19 +14,25 @@ import TextField from "../UI/TextField/TextField";
 import { uploadImage } from "../services/upload";
 import Loader from "../UI/Loader/Loader";
 import AddPost from "../components/AddPost";
-import { selectPosts } from "../store/selectors/postSelectors";
+import {
+  selectIsPostCreating,
+  selectPosts,
+} from "../store/selectors/postSelectors";
+import WarningForm from "../components/WarningForm";
 
 const Profile = () => {
   const { id } = useParams();
   const [posts, setPosts] = useState<IPost[]>();
   const [userProfile, setUserProfile] = useState<IUser>();
   const [input, setInput] = useState("");
-  const { makeConversations, updateProfile, deleteProfile } = useActions();
+  const [showForm, setShowForm] = useState(false);
+  const { makeConversations, updateProfile } = useActions();
   const navigate = useNavigate();
   const file = React.useRef<File | null>(null);
   const user = useTypedSelector(selectUser);
   const allPosts = useTypedSelector(selectPosts);
   const conversations = useTypedSelector(selectConversations);
+  const isAdding = useTypedSelector(selectIsPostCreating);
 
   React.useEffect(() => {
     if (id) {
@@ -71,10 +77,8 @@ const Profile = () => {
       updateProfile(newData, id);
     }
   };
-  const deleteUser = () => {
-    if (id) {
-      deleteProfile(id);
-    }
+  const showFormHandler = () => {
+    setShowForm(true);
   };
   return (
     <div className="p-5 bg-[#E5E5E5] rounded-2xl">
@@ -132,7 +136,7 @@ const Profile = () => {
                   />
                   <div className="h-[1px] bg-black my-5 "></div>
                   <Button
-                    onClick={deleteUser}
+                    onClick={showFormHandler}
                     text="Удалить аккаунт"
                     className="red-button"
                   />
@@ -141,7 +145,12 @@ const Profile = () => {
             )}
           </div>
           <div className="w-[60%]">
-            {user?._id === userProfile?._id ? <AddPost /> : null}
+            {user?._id === userProfile?._id ? <AddPost fileLabel="2" /> : null}
+            {isAdding && (
+              <div className="shadow p-3 bg-[white] rounded-2xl w-full max-w-[600px] my-2 min-h-[400px] flex items-center justify-center ">
+                <Loader />
+              </div>
+            )}
             {posts?.map((post) => (
               <Post
                 createdAt={post.createdAt}
@@ -161,6 +170,7 @@ const Profile = () => {
           <Loader />
         </div>
       )}
+      {showForm && <WarningForm setFlag={setShowForm} />}
     </div>
   );
 };

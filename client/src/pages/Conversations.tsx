@@ -25,10 +25,14 @@ const Conversations = () => {
       <div className="basis-1/5 bg-white border-[2px] border-[black] rounded-2xl px-4 flex flex-col   py-8">
         {isLoading ? (
           <Loader />
-        ) : (
+        ) : conversations && conversations.length > 0 ? (
           conversations.map((c) => (
             <ChatUserInfo chatId={c._id} members={c.members} key={c._id} />
           ))
+        ) : (
+          <h1 className="text-[22px]  font-bold text-center">
+            У вас пока нет диалогов
+          </h1>
         )}
       </div>
       <Outlet />

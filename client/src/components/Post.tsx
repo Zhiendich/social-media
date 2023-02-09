@@ -1,8 +1,14 @@
 import React from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import {
+  selectIsPostDeleting,
+  selectIsPostUpdating,
+  selectPostId,
+} from "../store/selectors/postSelectors";
 import { selectUser } from "../store/selectors/userSelectors";
 import { IUser } from "../types/user";
+import Loader from "../UI/Loader/Loader";
 
 interface IPost {
   _id?: string;
@@ -19,6 +25,9 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
   const [flag, setFlag] = React.useState(false);
   const { deletePost, updatePost, likePost } = useActions();
   const currentUser = useTypedSelector(selectUser);
+  const isDeleting = useTypedSelector(selectIsPostDeleting);
+  const isUpdating = useTypedSelector(selectIsPostUpdating);
+  const postId = useTypedSelector(selectPostId);
   const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setChangeText(e.target.value);
   };
@@ -44,6 +53,20 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
   const removeFlagHandler = () => {
     setFlag(false);
   };
+  if (isDeleting && _id === postId) {
+    return (
+      <div className="shadow p-3 bg-[white] rounded-2xl w-full max-w-[600px] my-2 min-h-[400px] flex items-center justify-center ">
+        <Loader />
+      </div>
+    );
+  }
+  if (isUpdating && _id === postId) {
+    return (
+      <div className="shadow p-3 bg-[white] rounded-2xl w-full max-w-[600px] my-2 min-h-[400px] flex items-center justify-center ">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="shadow p-3 bg-[white] rounded-2xl w-full max-w-[600px] my-2 min-h-[400px] ] ">
       <div className="flex  items-center mb-4">
@@ -65,8 +88,12 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
             <div className="flex items-center ">
               <span className="text-[17px] font-bold">{likes.length}</span>
               <img
-                className="w-[20px] h-[20px] cursor-pointer ml-1"
-                src={`${process.env.REACT_APP_API_URL_IMG}/like.png`}
+                className="w-[16px] h-[16px] cursor-pointer ml-1"
+                src={
+                  likes.includes(currentUser?._id || "no")
+                    ? `${process.env.REACT_APP_API_URL_IMG}/filled-like.png`
+                    : `${process.env.REACT_APP_API_URL_IMG}/like.png`
+                }
                 alt=""
                 onClick={likePostHandler}
               />
@@ -89,8 +116,12 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
           <div className="ml-auto flex items-center">
             <span className="text-[17px] font-bold">{likes.length}</span>
             <img
-              className="w-[20px] h-[20px] cursor-pointer ml-1"
-              src={`${process.env.REACT_APP_API_URL_IMG}/like.png`}
+              className="w-[16px] h-[16px] cursor-pointer ml-1"
+              src={
+                likes.includes(currentUser?._id || "no")
+                  ? `${process.env.REACT_APP_API_URL_IMG}/filled-like.png`
+                  : `${process.env.REACT_APP_API_URL_IMG}/like.png`
+              }
               alt=""
               onClick={likePostHandler}
             />

@@ -13,8 +13,12 @@ export interface IPost {
 
 export interface IPostState {
   posts: IPost[];
+  postId?: string | null;
   isPostLoading?: boolean;
   isPostError?: null | string;
+  isPostCreating?: boolean;
+  isPostUpdating?: boolean;
+  isPostDeleting?: boolean;
 }
 
 export enum PostActionTypes {
@@ -37,6 +41,7 @@ export enum PostActionTypes {
 
 interface PostAddAction {
   type: PostActionTypes.POST_ADD;
+  payload?: string;
 }
 
 interface PostAddSuccessAction {
@@ -50,6 +55,7 @@ interface PostAddErrorAction {
 }
 interface PostDeleteAction {
   type: PostActionTypes.POST_DELETE;
+  payload?: string;
 }
 
 interface PostDeleteSuccessAction {
@@ -64,6 +70,7 @@ interface PostDeleteErrorAction {
 
 interface PostUpdateAction {
   type: PostActionTypes.POST_UPDATE;
+  payload?: string;
 }
 
 interface PostUpdateSuccessAction {

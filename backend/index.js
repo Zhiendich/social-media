@@ -20,16 +20,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
-app.use("/api/images", express.static(path.join(__dirname, "public/images")));
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  try {
-    return res.status(200).json("File uploded successfully");
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 app.use(express.json());
 app.use(cors());
 
@@ -57,3 +47,14 @@ const startApp = async () => {
 };
 
 startApp();
+
+const upload = multer({ storage });
+app.use("/api/images", express.static(path.join(__dirname, "public/images")));
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  try {
+    return res.status(200).json("File uploded successfully");
+  } catch (error) {
+    console.error(error);
+    return res.status(200).json(error);
+  }
+});

@@ -5,7 +5,11 @@ import { uploadImage } from "../services/upload";
 import { selectUser } from "../store/selectors/userSelectors";
 import { IPost } from "../types/post";
 
-const AddPost = () => {
+interface IAddPostForm {
+  fileLabel: string;
+}
+
+const AddPost = ({ fileLabel }: IAddPostForm) => {
   const [input, setInput] = React.useState("");
   const file = React.useRef<File | null>(null);
   const user = useTypedSelector(selectUser);
@@ -25,8 +29,11 @@ const AddPost = () => {
         formData.append("name", file.current.name);
         uploadImage(formData);
       }
-      createPost(newPost);
-      setInput("");
+      if (input || file.current) {
+        createPost(newPost);
+        setInput("");
+        file.current = null;
+      }
     } else {
       alert("Ошибка");
     }
@@ -48,7 +55,7 @@ const AddPost = () => {
         value={input}
         onChange={inputHandler}
       />
-      <label htmlFor="file">
+      <label htmlFor={fileLabel}>
         <img
           className="w-[20px] h-[20px] cursor-pointer ml-2  mt-2"
           src="https://www.svgrepo.com/show/12604/paper-clip.svg"
@@ -57,7 +64,7 @@ const AddPost = () => {
         <input
           className="hidden"
           type="file"
-          id="file"
+          id={fileLabel}
           onChange={uploadFileHandler}
         />
       </label>

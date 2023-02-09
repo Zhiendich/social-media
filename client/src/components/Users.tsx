@@ -23,7 +23,7 @@ const Users = () => {
     <div>
       {isLoading ? (
         <Loader />
-      ) : (
+      ) : users && users.length > 0 ? (
         users?.map((user) => (
           <User
             key={user._id}
@@ -36,6 +36,10 @@ const Users = () => {
             }
           />
         ))
+      ) : (
+        <h1 className="text-[25px] text-center font-bold ">
+          Пользователей пока что нет
+        </h1>
       )}
     </div>
   );

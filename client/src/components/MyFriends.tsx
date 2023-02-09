@@ -23,7 +23,7 @@ const MyFriends = () => {
     <div>
       {isLoading ? (
         <Loader />
-      ) : (
+      ) : users && users.length > 0 ? (
         users?.map((user) => (
           <User
             key={user._id}
@@ -36,6 +36,10 @@ const MyFriends = () => {
             }
           />
         ))
+      ) : (
+        <h1 className="text-[25px] text-center font-bold ">
+          У вас пока нет друзей
+        </h1>
       )}
     </div>
   );

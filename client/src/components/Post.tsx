@@ -19,7 +19,7 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
   const [flag, setFlag] = React.useState(false);
   const { deletePost, updatePost, likePost } = useActions();
   const currentUser = useTypedSelector(selectUser);
-  const changeTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setChangeText(e.target.value);
   };
   const deletePostHandler = () => {
@@ -40,6 +40,9 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
     if (_id && currentUser?._id) {
       likePost(_id, currentUser._id);
     }
+  };
+  const removeFlagHandler = () => {
+    setFlag(false);
   };
   return (
     <div className="shadow p-3 bg-[white] rounded-2xl w-full max-w-[600px] my-2 min-h-[400px] ] ">
@@ -95,19 +98,26 @@ const Post = ({ _id, user, desc, img, createdAt, updatedAt, likes }: IPost) => {
         )}
       </div>
       {flag ? (
-        <div className="flex">
-          <input
+        <div>
+          <textarea
             value={changeText}
             onChange={changeTextHandler}
-            className="p-2 rounded-2xl outline-none border-black border-[2px] mr-3 w-full"
-            type="text"
+            className="p-2 rounded-2xl outline-none border-black border-[2px] mr-3 w-full min-h-[200px]"
           />
-          <button
-            onClick={updatePostHandler}
-            className="p-2 rounded-2xl outline-none text-[white] bg-black"
-          >
-            Изменить
-          </button>
+          <div className="flex mt-2 justify-end">
+            <button
+              onClick={updatePostHandler}
+              className="p-2 rounded-2xl outline-none text-[white] bg-black min-w-[100px]"
+            >
+              Изменить
+            </button>
+            <button
+              onClick={removeFlagHandler}
+              className="p-2 rounded-2xl outline-none text-[white] bg-black ml-1 min-w-[100px]"
+            >
+              Отмена
+            </button>
+          </div>
         </div>
       ) : (
         <div className="">

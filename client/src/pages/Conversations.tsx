@@ -21,8 +21,8 @@ const Conversations = () => {
     }
   }, [user?._id]);
   return (
-    <div className="p-5 bg-[#E5E5E5] rounded-2xl flex">
-      <div className="basis-1/5 bg-white border-[2px] border-[black] rounded-2xl px-4 flex flex-col  py-8">
+    <div className="p-5 bg-[#E5E5E5] rounded-2xl flex items-start">
+      <div className="basis-1/5 bg-white border-[2px] border-[black] rounded-2xl px-4 flex flex-col   py-8">
         {isLoading ? (
           <Loader />
         ) : (

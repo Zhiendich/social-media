@@ -49,7 +49,8 @@ class postController {
     try {
       const posts = await Post.find({ user: req.params.id }).populate("user");
       if (posts) {
-        return res.status(200).json(posts);
+        const sortedPosts = posts.sort((a, b) => b.createdAt - a.createdAt);
+        return res.status(200).json(sortedPosts);
       } else {
         return res.status(200).json("Не нашел пользовательских постов");
       }

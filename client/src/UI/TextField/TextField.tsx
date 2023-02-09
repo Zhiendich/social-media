@@ -6,8 +6,8 @@ interface ITeaxfield {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   error?: string | null;
   setError?: React.Dispatch<React.SetStateAction<string | null>>;
-  style?: object;
   placeholder?: string;
+  className?: string;
 }
 const TextField = ({
   fieldName,
@@ -16,8 +16,8 @@ const TextField = ({
   setValue,
   error,
   setError,
-  style,
   placeholder,
+  className,
 }: ITeaxfield) => {
   const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (setError) {
@@ -40,15 +40,15 @@ const TextField = ({
         </p>
       )}
       <input
-        style={style}
         value={value}
         type={fieldType}
         onChange={changeValueHandler}
+        maxLength={26}
         placeholder={placeholder}
         className={
           error
-            ? "border-[red] border-[2px] p-2 rounded-2xl outline-none"
-            : "p-2 rounded-2xl outline-none"
+            ? `${className} border-[red] border-[2px] p-2 rounded-2xl outline-none`
+            : `${className} p-2 rounded-2xl outline-none`
         }
       />
       {error && <h1 className="text-center text-[red] ">{error}</h1>}

@@ -13,6 +13,8 @@ import { selectConversations } from "../store/selectors/conversationSelectors";
 import TextField from "../UI/TextField/TextField";
 import { uploadImage } from "../services/upload";
 import Loader from "../UI/Loader/Loader";
+import AddPost from "../components/AddPost";
+import { selectPosts } from "../store/selectors/postSelectors";
 
 const Profile = () => {
   const { id } = useParams();
@@ -23,6 +25,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const file = React.useRef<File | null>(null);
   const user = useTypedSelector(selectUser);
+  const allPosts = useTypedSelector(selectPosts);
   const conversations = useTypedSelector(selectConversations);
 
   React.useEffect(() => {
@@ -30,7 +33,7 @@ const Profile = () => {
       getUsersPosts(id).then((data) => setPosts(data));
       getUser(id).then((data) => setUserProfile(data));
     }
-  }, [id, user]);
+  }, [id, user, allPosts]);
   const makeDialog = () => {
     if (user?._id && id) {
       const check = [user._id, id];
@@ -76,8 +79,8 @@ const Profile = () => {
   return (
     <div className="p-5 bg-[#E5E5E5] rounded-2xl">
       {userProfile && posts ? (
-        <div className="flex justify-center">
-          <div className="mr-14 flex flex-col items-center">
+        <div className="flex justify-center items-start">
+          <div className="mr-14 flex flex-col   items-center bg-white p-4 rounded-2xl max-w-[350px] w-full max-h-[550px] border-[1px] border-[black]">
             <img
               className="w-[150px] h-[150px] rounded-full"
               src={
@@ -87,17 +90,23 @@ const Profile = () => {
               }
               alt=""
             />
-            <h1 className="text-[25px] font-bold">{userProfile?.fullName}</h1>
+            <h1 className="text-[25px] font-bold break-all text-center">
+              {userProfile?.fullName}
+            </h1>
             {userProfile?.phone}
             {user?._id !== userProfile?._id ? (
               <Button
-                style={{ width: "100%", marginTop: "15px" }}
+                className="black-button mt-4 h-[50px]"
                 text="Написать сообщение"
                 onClick={makeDialog}
               />
             ) : (
               <div className="mt-3">
                 <div className="flex flex-col">
+                  <div className="h-[1px] bg-black my-2 "></div>
+                  <h1 className="text-center font-bold text-[22px] mb-3">
+                    Изменить данные :
+                  </h1>
                   <label htmlFor="file">
                     <div className="bg-[black] text-[white] p-2 cursor-pointer mb-3 text-center rounded-2xl">
                       Поменять аватар
@@ -111,36 +120,28 @@ const Profile = () => {
                   </label>
                   <TextField
                     fieldType="text"
+                    className="border-[2px] border-black mb-3"
                     value={input}
                     setValue={setInput}
                     placeholder="Введине новое имя"
                   />
                   <Button
-                    style={{
-                      backgroundColor: "black",
-                      color: "white",
-                      marginTop: "15px",
-                      width: "90px",
-                      marginLeft: "auto",
-                    }}
+                    className="black-button w-[100px] ml-auto"
                     text="Изменить"
                     onClick={updateProfileHandler}
                   />
-                  <div className="h-[1px] bg-black mt-6 "></div>
+                  <div className="h-[1px] bg-black my-5 "></div>
                   <Button
                     onClick={deleteUser}
                     text="Удалить аккаунт"
-                    style={{
-                      backgroundColor: "red",
-                      marginTop: "15px",
-                      color: "white",
-                    }}
+                    className="red-button"
                   />
                 </div>
               </div>
             )}
           </div>
-          <div className="w-[70%]">
+          <div className="w-[60%]">
+            {user?._id === userProfile?._id ? <AddPost /> : null}
             {posts?.map((post) => (
               <Post
                 createdAt={post.createdAt}

@@ -26,7 +26,7 @@ const Header = () => {
           }
           alt=""
         />
-        <Button onClick={logout} text={"Выйти"} />
+        <Button className="ml-2 w-[100px]" onClick={logout} text={"Выйти"} />
       </div>
     </header>
   );

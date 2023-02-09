@@ -3,15 +3,14 @@ import React from "react";
 interface IButton {
   onClick: () => void;
   text: string;
-  style?: object;
+  className?: string;
 }
 
-const Button = ({ onClick, text, style }: IButton) => {
+const Button = ({ onClick, text, className }: IButton) => {
   return (
     <button
-      style={style}
       onClick={onClick}
-      className="p-2 ml-3 min-w-[80px] bg-[white] text-[black] rounded-2xl"
+      className={`${className} p-2  w-full bg-[white] text-[black] rounded-2xl`}
     >
       {text}
     </button>

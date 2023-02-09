@@ -43,7 +43,7 @@ const User = ({ fullName, _id, avatar }: IUser) => {
     }
   };
   return (
-    <div className="p-4 bg-[white] rounded-2xl my-4 flex  justify-between">
+    <div className="user-hover p-4 bg-[white] rounded-2xl my-4 flex  justify-between h-[90px] items-center">
       <Link
         className="flex items-center mb-2"
         to={`../../profile/${_id}` || ""}
@@ -55,26 +55,31 @@ const User = ({ fullName, _id, avatar }: IUser) => {
         />
         <h1 className="ml-2 text-[19px]">{fullName}</h1>
       </Link>
-      <div>
+      <div className="flex">
         {user?.followings?.includes(_id!) ? (
-          <Button
-            style={{ backgroundColor: "black", color: "white", height: "50px" }}
-            text="Удалить друга"
-            onClick={removeFriendHandler}
-          />
+          <div className="w-[180px]">
+            <Button
+              className="black-button h-[50px]"
+              text="Удалить друга"
+              onClick={removeFriendHandler}
+            />
+          </div>
         ) : (
-          <Button
-            style={{ backgroundColor: "black", color: "white", height: "50px" }}
-            text="Добавить в друзья"
-            onClick={addFriendHandler}
-          />
+          <div className="w-[180px]">
+            <Button
+              className="black-button h-[50px]"
+              text="Добавить в друзья"
+              onClick={addFriendHandler}
+            />
+          </div>
         )}
-
-        <Button
-          style={{ backgroundColor: "black", color: "white", height: "50px" }}
-          text="Написать сообщение"
-          onClick={makeDialog}
-        />
+        <div className="w-[180px] ml-2">
+          <Button
+            className="black-button h-[50px]"
+            text="Написать сообщение"
+            onClick={makeDialog}
+          />
+        </div>
       </div>
     </div>
   );

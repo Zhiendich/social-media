@@ -42,6 +42,7 @@ export const makeConversations = (senderId: string, recieverId: string) => {
         type: ConversationActionTypes.MAKE_CONVERSATION_SUCCESS,
         payload: response.data,
       });
+      return response.data._id;
     } catch (error: any) {
       dispatch({
         type: ConversationActionTypes.MAKE_CONVERSATION_ERROR,

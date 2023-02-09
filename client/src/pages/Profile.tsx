@@ -40,15 +40,15 @@ const Profile = () => {
       getUser(id).then((data) => setUserProfile(data));
     }
   }, [id, user, allPosts]);
-  const makeDialog = () => {
-    if (user?._id && id) {
+  const makeDialog = async () => {
+    if (user?._id && id && conversations.length > 0) {
       const check = [user._id, id];
       const find = conversations.find(
         (c) => JSON.stringify(c.members) === JSON.stringify(check)
       );
       if (!find) {
-        makeConversations(user._id, id);
-        navigate(`../../chats/`);
+        const conversationId = await makeConversations(user._id, id);
+        navigate(`../../chats/${conversationId}`);
         return;
       } else {
         navigate(`../../chats/${find._id}`);

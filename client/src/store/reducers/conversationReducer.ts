@@ -40,11 +40,13 @@ export const conversationReducer = (
     case ConversationActionTypes.MAKE_CONVERSATION_SUCCESS:
       return {
         conversation: state.conversation,
+        conversationId: action.payload._id,
       };
     case ConversationActionTypes.MAKE_CONVERSATION_ERROR:
       console.log(action.type, action.payload);
       return {
         conversation: state.conversation,
+        conversationId: null,
       };
     default:
       return state;

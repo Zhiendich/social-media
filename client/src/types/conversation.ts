@@ -7,6 +7,7 @@ export interface IConversationState {
   conversation: IConversation[];
   isConversationLoading?: boolean;
   isConversationError?: null | string;
+  conversationId?: string | null;
 }
 
 export enum ConversationActionTypes {

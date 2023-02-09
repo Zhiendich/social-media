@@ -14,7 +14,6 @@ interface IUser {
 const User = ({ fullName, _id, avatar }: IUser) => {
   const user = useTypedSelector(selectUser);
   const navigate = useNavigate();
-  const { getConversations } = useActions();
   const conversations = useTypedSelector(selectConversations);
   const { addFriend, removeFriend, makeConversations } = useActions();
   const addFriendHandler = () => {
@@ -27,9 +26,7 @@ const User = ({ fullName, _id, avatar }: IUser) => {
       removeFriend(user?._id, _id);
     }
   };
-  if (conversations.length === 0 && user?._id) {
-    getConversations(user._id);
-  }
+
   const makeDialog = async () => {
     if (user?._id && _id && conversations.length > 0) {
       const check = [user._id, _id];
